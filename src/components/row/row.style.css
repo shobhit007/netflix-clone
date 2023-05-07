@@ -1,0 +1,39 @@
+.row {
+  padding: 1rem 0 0.5rem;
+}
+
+.row__title {
+  color: var(--clr-white);
+  margin-bottom: 0.25rem;
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  font-weight: 500;
+}
+
+.row__movies {
+  display: flex;
+  overflow-y: hidden;
+  overflow-x: scroll;
+}
+
+.row__movies::-webkit-scrollbar {
+  display: none;
+}
+
+.row__poster {
+  max-height: 20vh;
+  margin-right: 0.5rem;
+  transition: 0.3s;
+}
+
+.row__poster:hover {
+  transform: scale(1.05);
+  opacity: 1;
+}
+
+.row__large-poster {
+  max-height: 35vh;
+}
+
+.row__large-poster:hover {
+  transform: scale(1.09);
+}

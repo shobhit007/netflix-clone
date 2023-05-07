@@ -1,0 +1,102 @@
+:root {
+  --clr-black: #111;
+  --clr-white: #fff;
+  --clr-red: #e50914;
+  --clr-light: #333;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+img,
+picture {
+  max-width: 100%;
+}
+
+input,
+select,
+textarea,
+button {
+  font: inherit;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  background-color: var(--clr-black);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+/* utility classes */
+
+/* margin */
+.mt {
+  margin-top: var(--mt, 1rem);
+}
+.mb {
+  margin-bottom: var(--mb, 1rem);
+}
+.ml {
+  margin-left: var(--ml, 1rem);
+}
+.mr {
+  margin-right: var(--mr, 1rem);
+}
+
+/* text-align */
+.text-center {
+  text-align: center;
+}
+.text-left {
+  text-align: left;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+/* fonts */
+.fw-500 {
+  font-weight: 500;
+}
+
+.fw-600 {
+  font-weight: 600;
+}
+
+.text-light {
+  color: var(--clr-light);
+}
+
+.text-dark {
+  color: var(--clr-black);
+}
+
+.text-white {
+  color: var(--clr-white);
+}
