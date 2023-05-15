@@ -24,7 +24,3 @@
   align-items: center;
   gap: 0.5rem;
 }
-
-.checkmark-group--icon {
-  color: var(--clr-red);
-}

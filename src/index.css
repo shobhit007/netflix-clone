@@ -72,8 +72,12 @@ code {
 .text-center {
   text-align: center;
 }
+
 .text-left {
   text-align: left;
+}
+.text-right {
+  text-align: right;
 }
 
 .uppercase {
@@ -99,4 +103,12 @@ code {
 
 .text-white {
   color: var(--clr-white);
+}
+
+/* animation */
+@keyframes slideIn {
+  from {
+    transform: translate(40px, 0);
+    opacity: 0;
+  }
 }

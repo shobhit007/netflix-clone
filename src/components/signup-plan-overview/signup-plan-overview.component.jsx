@@ -1,9 +1,15 @@
 import "./signup-plan-overview.style.css";
 import React from "react";
 
+import { useNavigate } from "react-router-dom";
+
 import RedButton from "../red-button/red-button.component";
 
 function SignupPlanOverview() {
+  const navigate = useNavigate();
+
+  const goToPlanForm = () => navigate("/signup/planform");
+
   return (
     <div className="overlay__wrapper">
       <div className="ms-overlay">
@@ -86,7 +92,7 @@ function SignupPlanOverview() {
               </span>
             </div>
           </div>
-          <RedButton text="Next" />
+          <RedButton text="Next" onClick={goToPlanForm} />
         </div>
       </div>
     </div>

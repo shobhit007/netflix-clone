@@ -25,14 +25,10 @@
   min-height: calc(100vh - 90px);
   position: relative;
   background-color: var(--clr-white);
+  padding: 6vw 0 0;
 }
 
 .ms-overlay {
-  width: 100%;
-  position: absolute;
-  left: 0;
-  top: 20%;
-  z-index: 1;
   padding: 0 1rem;
 }
 
@@ -41,8 +37,12 @@
     padding: 0 1rem;
     height: 60px;
   }
+
+  .overlay__wrapper {
+    min-height: calc(100vh - 60px);
+  }
   .ms-overlay {
-    top: 10%;
+    padding: 1rem;
   }
 }
 
@@ -85,9 +85,7 @@
   margin-top: 1rem;
 }
 
-@keyframes slideIn {
-  from {
-    transform: translate(40px, 0);
-    opacity: 0;
-  }
+/* checkmark icon */
+.checkmark-group--icon {
+  color: var(--clr-red);
 }

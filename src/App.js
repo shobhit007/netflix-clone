@@ -9,6 +9,7 @@ import SignupOverview from "./components/signup-overview/signup-overview.compone
 import Signupform from "./components/signup-form/signup-form.component";
 import SignupPassword from "./components/signup-password/signup-password.component";
 import SignupPlanOverview from "./components/signup-plan-overview/signup-plan-overview.component";
+import SignupPlanForm from "./components/signup-plan-form/signup-plan-form.component";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="regform" element={<Signupform />} />
         <Route path="password" element={<SignupPassword />} />
         <Route path="plan" element={<SignupPlanOverview />} />
+        <Route path="planform" element={<SignupPlanForm />} />
       </Route>
     </Routes>
   );

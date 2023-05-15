@@ -1,15 +1,18 @@
 import "./signin-style.css";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
 import { isUserExits } from "../../utils/firebase.config";
+
+import { AuthContext } from "../../context/auth.context";
 
 import SignInForm from "../../components/signin-form/signin-form.component";
 
 function SignIn() {
   const [showSignInModal, setShowSignInModal] = useState(false);
   const [email, setEmail] = useState("");
+  const { user } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -27,7 +30,9 @@ function SignIn() {
 
     const isEmailExists = await isUserExits(email);
 
-    if (isEmailExists) {
+    if (user) {
+      navigate("/signup/plan");
+    } else if (isEmailExists) {
       navigate("/signup/password", {
         state: email,
       });
