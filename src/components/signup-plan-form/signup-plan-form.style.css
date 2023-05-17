@@ -57,11 +57,12 @@
 .spf-plan__label::after {
   content: "";
   position: absolute;
-  width: 100%;
-  height: 100%;
-
-  background-color: inherit;
-  transform: rotate(45deg);
+  border: 0 solid transparent;
+  border-width: 10px 10px 0;
+  border-top-color: var(--clr-red);
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
   display: none;
   z-index: -1;
 }
@@ -81,7 +82,19 @@
   }
 
   .spf-plan__selector {
-    padding: 0 17.1px;
+    padding: 0 16px;
+  }
+}
+
+@media (min-width: 592px) and (max-width: 943px) {
+  .spf-plan__label {
+    width: 90px;
+    height: 90px;
+  }
+
+  .spf-plan__selector {
+    width: 35%;
+    padding: 0 12px;
   }
 }
 
@@ -109,16 +122,20 @@ table {
 .spf-plan__list-row {
   min-height: 60px;
   display: flex;
-  align-items: center;
+  border-bottom: 1px solid gray;
+}
+
+.spf-plan__list-row:last-child {
+  border-width: 0;
 }
 
 .spf-plan__list-item {
-  width: 25%;
+  flex: 1;
   padding: 0.35rem;
 }
 
 .wide-col {
-  width: 35%;
+  flex: 2;
 }
 
 @media (max-width: 591px) {
@@ -127,7 +144,17 @@ table {
   }
 
   .wide-col {
-    width: 100%;
+    flex-basis: 100%;
     text-align: center;
   }
+}
+
+.spf-button-container {
+  max-width: 400px;
+  margin: 0 auto;
+  margin-top: 2rem;
+}
+
+.selected {
+  color: var(--clr-red);
 }

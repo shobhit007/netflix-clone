@@ -10,6 +10,8 @@ import Signupform from "./components/signup-form/signup-form.component";
 import SignupPassword from "./components/signup-password/signup-password.component";
 import SignupPlanOverview from "./components/signup-plan-overview/signup-plan-overview.component";
 import SignupPlanForm from "./components/signup-plan-form/signup-plan-form.component";
+import PaymentPicker from "./components/signup-payment-picker/signup-payment-picker.component";
+import PaymentStatus from "./components/payment-status/payment-status.component";
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
         <Route path="password" element={<SignupPassword />} />
         <Route path="plan" element={<SignupPlanOverview />} />
         <Route path="planform" element={<SignupPlanForm />} />
+        <Route path="paymentPicker" element={<PaymentPicker />} />
+        <Route path="paymentSuccess" element={<PaymentStatus />} />
       </Route>
     </Routes>
   );

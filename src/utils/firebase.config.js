@@ -73,3 +73,17 @@ export const loginWithEmailAndPassword = (email, password) => {
 
 //user log out
 export const signOutUser = async () => await signOut(auth);
+
+//save payment status
+export const setUserPaymentStatus = async (user, payment) => {
+  const paymentRef = doc(db, "customer", user.email);
+
+  try {
+    await setDoc(paymentRef, {
+      paymentIntent: payment,
+      active: true,
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+};

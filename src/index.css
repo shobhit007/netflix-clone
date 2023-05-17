@@ -85,6 +85,10 @@ code {
 }
 
 /* fonts */
+.fs-300 {
+  font-size: 0.8rem;
+}
+
 .fw-500 {
   font-weight: 500;
 }
