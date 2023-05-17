@@ -9,14 +9,18 @@ import { AuthContext } from "../../context/auth.context";
 
 import { stripePromise } from "../../utils/stripe";
 
-const PaymentStatus = () => {
+import RedButton from "../red-button/red-button.component";
+import { useNavigate } from "react-router-dom";
+
+const CheckoutStatus = () => {
   const [successMessage, setSuccessMessage] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const stripe = useStripe();
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (!stripe) {
+    if (!stripe || !user) {
       return;
     }
 
@@ -51,19 +55,43 @@ const PaymentStatus = () => {
     });
   }, [stripe, user]);
 
+  const redirectHomePage = () => navigate("/");
+
+  const redirectPlanForm = () => navigate("/signup/planform");
+
+  return (
+    <React.Fragment>
+      <div className="checkmark-row">
+        <Checkmark />
+      </div>
+      {successMessage && (
+        <div className="text-center">
+          <h1 className="mt text-light">Welcome to Netflix</h1>
+          <p
+            className="text-light mt mb"
+            style={{ "--mt": "0.5rem", "--mb": "1.5rem" }}
+          >
+            Ready to Watch? Click Next!
+          </p>
+        </div>
+      )}
+      {errorMessage && (
+        <span className="mt text-light fs-300 mb">{errorMessage}</span>
+      )}
+      {successMessage && <RedButton text="Next" onClick={redirectHomePage} />}
+      {errorMessage && (
+        <RedButton text="Try Again" onClick={redirectPlanForm} />
+      )}
+    </React.Fragment>
+  );
+};
+
+const PaymentStatus = () => {
   return (
     <div className="overlay__wrapper">
       <div className="ms-overlay__content">
         <Elements stripe={stripePromise}>
-          <div className="checkmark-row">
-            <Checkmark />
-          </div>
-          {successMessage && (
-            <h1 className="mt text-light">Welcome to Netflix</h1>
-          )}
-          {errorMessage && (
-            <span className="mt text-light fs-300">{errorMessage}</span>
-          )}
+          <CheckoutStatus />
         </Elements>
       </div>
     </div>

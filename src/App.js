@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import HomeScreen from "./screens/home-screen/home-screen";
 import SignIn from "./screens/signin-screen/signin-screen";
 import Signup from "./screens/signup-screen/signup-screen";
+import WatchScreen from "./screens/watch-screen/watch-screen";
 
 //Multi-step form component
 import SignupOverview from "./components/signup-overview/signup-overview.component";
@@ -17,6 +18,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<HomeScreen />} />
+      <Route path="/user/:id" element={<WatchScreen />} />
       <Route path="/signin" element={<SignIn />} />
       <Route path="/signup" element={<Signup />}>
         <Route path="registration" element={<SignupOverview />} />

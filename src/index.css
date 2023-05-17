@@ -1,8 +1,9 @@
 :root {
-  --clr-black: #111;
+  --clr-black: #000000;
   --clr-white: #fff;
   --clr-red: #e50914;
   --clr-light: #333;
+  --clr-blue: #0071eb;
 }
 
 *,
@@ -107,6 +108,10 @@ code {
 
 .text-white {
   color: var(--clr-white);
+}
+
+.text-blue {
+  color: var(--clr-blue);
 }
 
 /* animation */

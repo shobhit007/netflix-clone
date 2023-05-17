@@ -1,0 +1,250 @@
+.hero-bg {
+  background: url(https://assets.nflxext.com/ffe/siteui/vlv3/70805ddd-f38c-4e25-94cd-b5015e444ee0/6e99205c-e34b-4dbe-ba45-b026023791bc/IN-en-20230508-popsignuptwoweeks-perspective_alpha_website_large.jpg);
+  background-repeat: no-repeat;
+  background-size: 125%;
+  background-position: center 70%;
+}
+
+@media (max-width: 991px) {
+  .hero-bg {
+    background-size: cover;
+    background-position: center center;
+  }
+}
+
+.hero-section__wrapper {
+  background: rgba(0, 0, 0, 0.4);
+  background-image: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 1) 0,
+    rgba(0, 0, 0, 0.15) 60%,
+    rgba(0, 0, 0, 0.85) 100%
+  );
+  min-height: 100vh;
+}
+
+@media (min-width: 1440px) {
+  .hero-section__wrapper {
+    min-height: 43.85rem;
+  }
+}
+
+.section-wrapper {
+  padding: 3.5rem 0 3rem;
+}
+
+.section-container {
+  max-width: 1156px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.section-heading {
+  font-size: clamp(2rem, 2.3vw, 4rem);
+}
+
+.section-sub-heading {
+  font-size: 1.5rem;
+}
+
+@media (max-width: 991px) {
+  .section-sub-heading {
+    font-size: 1.25rem;
+  }
+}
+
+.section-heading {
+  line-height: 1.2;
+}
+
+.section-sub-heading {
+  line-height: 1.4;
+}
+
+.hr {
+  height: 0.5rem;
+  background-color: var(--clr-light);
+  border: none;
+}
+
+/* hero nav bar */
+.hero-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hero-nav-log {
+  width: 200px;
+}
+
+@media (max-width: 991px) {
+  .hero-nav {
+    padding: 0 1rem;
+  }
+  .hero-nav-log {
+    width: 120px;
+  }
+}
+
+.hero-nav-link {
+  display: block;
+  text-decoration: none;
+  color: var(--clr-white);
+  background-color: var(--clr-red);
+  font-weight: 600;
+  padding: 0.5em 1.5em;
+  border-radius: 0.25rem;
+}
+
+.hero-section__content {
+  max-width: 846px;
+  padding: 0 1rem 3rem;
+  margin: 0 auto;
+}
+
+@media (min-width: 1440px) {
+  .hero-section__content {
+    padding-top: 3.856rem;
+  }
+}
+
+.hero-section__form {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 648px;
+  margin: 0 auto;
+}
+
+@media (max-width: 991px) {
+  .hero-section__form {
+    flex-direction: column;
+  }
+}
+
+.hero-section__form > input {
+  flex: 2;
+  padding: 1rem;
+  background-color: transparent;
+  color: var(--clr-white);
+  border: 2px solid var(--clr-light);
+  border-radius: 0.25rem;
+}
+
+.hero-section__form > input:focus {
+  outline: 2px solid var(--clr-white);
+}
+
+.hero-section__form > button {
+  width: 100%;
+  flex: 1;
+  font-weight: 600;
+  border-radius: 0.25rem;
+  background-color: var(--clr-red);
+  color: var(--clr-white);
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 1.25rem;
+}
+
+@media (max-width: 991px) {
+  .hero-section__form > button {
+    padding: 1rem;
+    margin-top: 0.75rem;
+  }
+}
+
+.hero-section__form > button,
+.hero-nav-link {
+  transition: filter 0.3s;
+}
+
+.hero-section__form > button:hover,
+.hero-nav-link:hover {
+  filter: brightness(90%);
+}
+
+/* section row */
+.section-row {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 991px) {
+  .section-row {
+    flex-direction: column;
+  }
+}
+
+.section-row__img {
+  position: relative;
+  overflow: hidden;
+}
+
+.section-row > * {
+  width: 100%;
+}
+
+/* video */
+.row-video-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  max-width: 73%;
+  max-height: 53%;
+  top: 20.2%;
+  left: 13%;
+  z-index: -1;
+}
+
+.row-video-container > video {
+  display: inline-block;
+  width: 100%;
+}
+
+.order-2 {
+  order: 2;
+}
+
+.download-card {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  translate: -50% 0;
+  width: 100%;
+  max-width: 60%;
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  background-color: var(--clr-black);
+  border: 1px solid var(--clr-light);
+  border-radius: 0.25rem;
+  gap: 1rem;
+}
+
+.download-card > img {
+  width: 48px;
+}
+
+.download-card__content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.download-animation {
+  width: 48px;
+  height: 48px;
+  background: url("https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/download-icon.gif");
+  background-repeat: no-repeat;
+  background-size: 3rem;
+}
+
+/* second video */
+.rvc-2 {
+  max-width: 65%;
+  max-height: 53%;
+  top: 8.2%;
+  left: 17%;
+}
