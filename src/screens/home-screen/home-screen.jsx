@@ -1,17 +1,44 @@
 import "./home-screen.css";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
 
 import { AuthContext } from "../../context/auth.context";
+import { isUserExits } from "../../utils/firebase.config";
 
-import RedButton from "../../components/red-button/red-button.component";
+import Button from "../../components/button/button.component";
 
 function HomeScreen() {
   const { user } = useContext(AuthContext);
+  const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
   const handleClick = () => navigate("/signup/plan");
+
+  const handleOnChangeEmail = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handleGetStarted = async (e) => {
+    e.preventDefault();
+
+    if (!email) {
+      console.log("field required");
+      return;
+    }
+
+    const isEmailExists = await isUserExits(email);
+
+    if (isEmailExists) {
+      navigate("/signup/password", {
+        state: email,
+      });
+    } else {
+      navigate("/signup/registration", {
+        state: email,
+      });
+    }
+  };
 
   return (
     <div className="home-screen">
@@ -50,12 +77,21 @@ function HomeScreen() {
                   membership.
                 </p>
                 {!user ? (
-                  <form className="hero-section__form">
-                    <input type="email" placeholder="Email address" />
+                  <form
+                    onSubmit={handleGetStarted}
+                    className="hero-section__form"
+                  >
+                    <input
+                      type="email"
+                      placeholder="Email address"
+                      name="email"
+                      value={email}
+                      onChange={handleOnChangeEmail}
+                    />
                     <button>Get Started</button>
                   </form>
                 ) : (
-                  <RedButton text="Finish Sign Up" onClick={handleClick} />
+                  <Button onClick={handleClick}>Finish Sign Up</Button>
                 )}
               </div>
             </div>
@@ -212,7 +248,7 @@ function HomeScreen() {
               <button>Get Started</button>
             </form>
           ) : (
-            <RedButton text="Finish Sign Up" />
+            <Button onClick={handleClick}>Finish Sign Up</Button>
           )}
         </div>
       </footer>

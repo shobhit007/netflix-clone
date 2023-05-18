@@ -1,0 +1,49 @@
+.signout__wrapper {
+  min-height: 100vh;
+}
+
+.signout-background-image {
+  background-image: url("https://assets.nflxext.com/ffe/siteui/acquisition/login/login-the-crown_2-1500x1000.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.signout__card {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 12rem 1rem;
+}
+
+.signout__card-container {
+  padding: 2.5rem;
+  background-color: var(--clr-white);
+  color: var(--clr-light);
+}
+
+.signout__card-heading {
+  font-size: clamp(2.25rem, 2.2vw, 4.25rem);
+  line-height: 1.1;
+}
+
+.card-sub-heading {
+  margin-top: 1rem;
+  font-size: 1.125rem;
+}
+
+.btn-go-now {
+  display: inline-block;
+  text-decoration: none;
+  width: 100%;
+  padding: 0.5rem 0;
+  text-align: center;
+  background-color: var(--clr-blue);
+  color: var(--clr-white);
+  font-weight: 600;
+  margin-top: 2rem;
+}

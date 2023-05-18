@@ -10,8 +10,9 @@
   padding: 1rem 0;
   border-radius: 0.25rem;
   cursor: pointer;
+  transition-timing-function: cubic-bezier(0.5, 0, 0.1, 1);
 }
 
 .red-button:hover {
-  opacity: 0.9;
+  background: rgb(193, 17, 25);
 }

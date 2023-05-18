@@ -9,7 +9,7 @@ import { AuthContext } from "../../context/auth.context";
 
 import { stripePromise } from "../../utils/stripe";
 
-import RedButton from "../red-button/red-button.component";
+import Button from "../button/button.component";
 import { useNavigate } from "react-router-dom";
 
 const CheckoutStatus = () => {
@@ -78,10 +78,8 @@ const CheckoutStatus = () => {
       {errorMessage && (
         <span className="mt text-light fs-300 mb">{errorMessage}</span>
       )}
-      {successMessage && <RedButton text="Next" onClick={redirectHomePage} />}
-      {errorMessage && (
-        <RedButton text="Try Again" onClick={redirectPlanForm} />
-      )}
+      {successMessage && <Button onClick={redirectHomePage}>Next</Button>}
+      {errorMessage && <Button onClick={redirectPlanForm}>Try again</Button>}
     </React.Fragment>
   );
 };

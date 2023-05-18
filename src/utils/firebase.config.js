@@ -76,7 +76,7 @@ export const signOutUser = async () => await signOut(auth);
 
 //save payment status
 export const setUserPaymentStatus = async (user, payment) => {
-  const paymentRef = doc(db, "customer", user.email);
+  const paymentRef = doc(db, "customers", user.email);
 
   try {
     await setDoc(paymentRef, {
@@ -86,4 +86,15 @@ export const setUserPaymentStatus = async (user, payment) => {
   } catch (error) {
     console.log(error.message);
   }
+};
+
+//check if user premium member
+export const isUserActive = async (email) => {
+  const docRef = doc(db, "customers", email);
+
+  const userSnapshot = await getDoc(docRef);
+
+  if (userSnapshot.exists()) return true;
+
+  return false;
 };

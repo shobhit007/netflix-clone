@@ -6,7 +6,7 @@ import {
   PaymentElement,
 } from "@stripe/react-stripe-js";
 
-import RedButton from "../red-button/red-button.component";
+import Button from "../button/button.component";
 
 const CheckoutForm = () => {
   const stripe = useStripe();
@@ -37,7 +37,7 @@ const CheckoutForm = () => {
     <form onSubmit={handleSubmit}>
       <PaymentElement />
       <div className="mt">
-        <RedButton text="Next" disabled={!stripe} />
+        <Button disabled={!stripe}>Next</Button>
       </div>
       {errorMessage && (
         <span className="mt text-light fs-300">{errorMessage}</span>

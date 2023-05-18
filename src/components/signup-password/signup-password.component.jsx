@@ -2,10 +2,13 @@ import React, { useState } from "react";
 
 import { useLocation, useNavigate } from "react-router-dom";
 
-import RedButton from "../red-button/red-button.component";
+import Button from "../button/button.component";
 import Input from "../input/input.component";
 
-import { loginWithEmailAndPassword } from "../../utils/firebase.config";
+import {
+  loginWithEmailAndPassword,
+  isUserActive,
+} from "../../utils/firebase.config";
 
 function SignupPassword() {
   const { state: userEmail } = useLocation();
@@ -22,6 +25,13 @@ function SignupPassword() {
 
     try {
       await loginWithEmailAndPassword(userEmail, password);
+      const isActive = await isUserActive(userEmail);
+
+      if (isActive) {
+        navigate("/");
+        return;
+      }
+
       navigate("/signup/plan", { replace: true });
     } catch (error) {
       console.log(error);
@@ -58,7 +68,7 @@ function SignupPassword() {
               name="password"
               onChange={handleFormInuptChange}
             />
-            <RedButton text="Next" type="submit" />
+            <Button type="submit">Next</Button>
           </form>
         </div>
       </div>

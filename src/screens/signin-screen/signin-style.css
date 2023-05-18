@@ -1,8 +1,14 @@
 .sign-in {
-  background: url("https://raw.githubusercontent.com/thatanjan/netflix-clone-yt/youtube/media//banner.jpg")
+  background: url("https://assets.nflxext.com/ffe/siteui/vlv3/51e53f54-0d9f-40ec-9e05-c030def06ac9/be5b2939-da9f-4b9f-b76b-31b32ad0515b/IN-en-20230515-popsignuptwoweeks-perspective_alpha_website_large.jpg")
     center no-repeat;
-  background-size: cover;
-  object-fit: contain;
+  background-size: 110%;
+  background-position: 0 4%;
+}
+
+@media (max-width: 1440px) {
+  .sign-in {
+    background-size: auto;
+  }
 }
 
 .sign-in__wrapper {
@@ -16,89 +22,4 @@
     rgba(0, 0, 0, 0.15) 60%,
     rgba(0, 0, 0, 0.8) 100%
   );
-}
-
-.sign-in__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1;
-}
-
-.sign-in__button {
-  cursor: pointer;
-  border: none;
-  outline: none;
-  color: var(--clr-white);
-  background-color: var(--clr-red);
-  padding: 0.5rem 1.25rem;
-}
-
-.sign-in__content {
-  position: absolute;
-  top: 30%;
-  left: 0;
-  width: 100%;
-  z-index: 2;
-  color: var(--clr-white);
-  text-align: center;
-  padding: 0 1rem;
-}
-
-@media (max-width: 540px) {
-  .sign-in__content {
-    top: 25%;
-  }
-}
-
-.sign-in__content-wrapper {
-  margin: 0 auto;
-}
-
-.sign-in__content-wrapper > h1 {
-  font-size: clamp(2.25rem, 3vw, 3.25rem);
-  font-weight: 600;
-  line-height: 1;
-}
-.sign-in__content-wrapper > h2 {
-  font-size: 1.5rem;
-  font-weight: 400;
-  margin: 0.5rem 0 0.2rem;
-}
-.sign-in__content-wrapper > h3 {
-  font-size: 1rem;
-  font-weight: 400;
-}
-
-.sign-in__input-row {
-  margin-top: 2rem;
-}
-
-.form {
-  display: flex;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.form > input {
-  width: 100%;
-  padding: 1rem 1.25rem;
-  border: none;
-  outline-width: 0;
-}
-
-.form > button {
-  width: 180px;
-  background: var(--clr-red);
-  color: var(--clr-white);
-  font-weight: 500;
-  border: none;
-  outline: none;
-  text-transform: uppercase;
-  cursor: pointer;
 }

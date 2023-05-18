@@ -2,7 +2,7 @@ import React from "react";
 
 import { useNavigate, useLocation } from "react-router-dom";
 
-import RedButton from "../red-button/red-button.component";
+import Button from "../button/button.component";
 
 function SignupOverview() {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ function SignupOverview() {
           <p className="step__sub-heading mb" style={{ "--mb": "1.5rem" }}>
             Create a password to watch on any device at any time.
           </p>
-          <RedButton text="Next" onClick={handleNextScreen} />
+          <Button onClick={handleNextScreen}>Next</Button>
         </div>
       </div>
     </div>

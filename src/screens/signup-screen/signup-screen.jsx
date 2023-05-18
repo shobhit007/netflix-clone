@@ -3,14 +3,10 @@ import React, { useContext } from "react";
 
 import { AuthContext } from "../../context/auth.context";
 
-import { signOutUser } from "../../utils/firebase.config";
-
 import { Link, Outlet } from "react-router-dom";
 
 function Signup() {
   const { user } = useContext(AuthContext);
-
-  const handleSignOutUser = () => signOutUser();
 
   return (
     <React.Fragment>
@@ -25,9 +21,9 @@ function Signup() {
             Sign In
           </Link>
         ) : (
-          <span className="signup__nav-link fw-500" onClick={handleSignOutUser}>
-            Logout
-          </span>
+          <Link className="signup__nav-link fw-500" to="/signout">
+            Sign Out
+          </Link>
         )}
       </header>
 

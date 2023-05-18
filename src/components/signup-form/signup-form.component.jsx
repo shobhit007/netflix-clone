@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
-import RedButton from "../red-button/red-button.component";
+import Button from "../button/button.component";
 import Input from "../input/input.component";
 
 import {
@@ -12,6 +12,7 @@ import {
 
 function Signupform() {
   const { state: userEmail } = useLocation();
+  const navigate = useNavigate();
 
   const [formFields, setFormFields] = useState({
     email: userEmail ? userEmail : "",
@@ -36,6 +37,7 @@ function Signupform() {
       const { user } = await signupWithEmailAndPassword(email, password);
 
       await createUserDoc(user);
+      navigate("/signup/plan");
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
         console.log("email has already been used");
@@ -82,7 +84,7 @@ function Signupform() {
               name="password"
               onChange={handleFormInuptChange}
             />
-            <RedButton text="Next" type="submit" />
+            <Button type="submit">Next</Button>
           </form>
         </div>
       </div>
