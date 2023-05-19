@@ -13,11 +13,14 @@ const CheckoutForm = () => {
   const elements = useElements();
 
   const [errorMessage, setErrorMessage] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!stripe || !elements) return;
+
+    setLoading(true);
 
     const { error } = await stripe.confirmPayment({
       elements,
@@ -25,6 +28,8 @@ const CheckoutForm = () => {
         return_url: "http://localhost:8888/signup/paymentSuccess",
       },
     });
+
+    setLoading(false);
 
     if (error) {
       setErrorMessage(error.message);
@@ -37,7 +42,9 @@ const CheckoutForm = () => {
     <form onSubmit={handleSubmit}>
       <PaymentElement />
       <div className="mt">
-        <Button disabled={!stripe}>Next</Button>
+        <Button disabled={loading} loading={loading}>
+          Next
+        </Button>
       </div>
       {errorMessage && (
         <span className="mt text-light fs-300">{errorMessage}</span>

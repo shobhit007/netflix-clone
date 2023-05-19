@@ -12,8 +12,6 @@ const PaymentPicker = () => {
     state: { clientSecret },
   } = useLocation();
 
-  console.log(clientSecret);
-
   const options = {
     clientSecret,
   };

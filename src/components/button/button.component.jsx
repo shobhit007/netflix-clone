@@ -1,10 +1,11 @@
-import React from "react";
 import "./button.style.css";
 
-function Button({ children, ...mainProps }) {
+import Spinner from "../spinner/spinner.component";
+
+function Button({ loading, children, ...mainProps }) {
   return (
     <button className="red-button" {...mainProps}>
-      {children}
+      {loading ? <Spinner /> : children}
     </button>
   );
 }

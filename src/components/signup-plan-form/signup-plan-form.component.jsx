@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 
 import Button from "../button/button.component";
 
+import { paymentHandler } from "../../utils/stripe";
+
 import { ReactComponent as PhoneIcon } from "../../assets/icons/phone.svg";
 import { ReactComponent as TabletIcon } from "../../assets/icons/tablet.svg";
 import { ReactComponent as ComputerIcon } from "../../assets/icons/computer.svg";
@@ -20,27 +22,25 @@ const plans = {
 function SignupPlanForm() {
   const navigate = useNavigate();
   const [selectedValue, setSelectedValue] = useState("basic");
+  const [loading, setLoading] = useState(false);
 
   const isSelected = (val) => val === selectedValue;
 
   const onHandleChange = (e) => setSelectedValue(e.target.value);
 
-  const paymentHandler = async () => {
-    const response = await fetch("/.netlify/functions/payment-intent", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ amount: plans[selectedValue] * 100 }),
-    }).then((res) => res.json());
+  const handlePayment = async () => {
+    try {
+      setLoading(true);
+      const client_secret = await paymentHandler(plans[selectedValue]);
+      setLoading(false);
 
-    const {
-      paymentIntent: { client_secret },
-    } = response;
-
-    navigate("/signup/paymentPicker", {
-      state: { clientSecret: client_secret },
-    });
+      navigate("/signup/paymentPicker", {
+        state: { clientSecret: client_secret },
+      });
+    } catch (error) {
+      console.log(error.message);
+      setLoading(false);
+    }
   };
 
   return (
@@ -400,7 +400,9 @@ function SignupPlanForm() {
           </table>
         </div>
         <div className="spf-button-container">
-          <Button onClick={paymentHandler}>Next</Button>
+          <Button onClick={handlePayment} disabled={loading} loading={loading}>
+            Next
+          </Button>
         </div>
       </div>
     </div>

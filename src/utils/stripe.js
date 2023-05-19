@@ -1,5 +1,25 @@
 import { loadStripe } from "@stripe/stripe-js";
 
 export const stripePromise = loadStripe(
-  "pk_test_51N85LZSIWpHaHbxKFEN9Pn23lmlLUoywZNUggHIMwwG8MbMXwA27tlLx2Al0pmHJo0HivGwLUPb73v1UF0tjhAwk00VKX6atV4"
+  process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY
 );
+
+export const paymentHandler = async (amount) => {
+  try {
+    const response = await fetch("/.netlify/functions/payment-intent", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ amount: amount * 100 }),
+    }).then((res) => res.json());
+
+    const {
+      paymentIntent: { client_secret },
+    } = response;
+
+    return client_secret;
+  } catch (error) {
+    return error.message;
+  }
+};

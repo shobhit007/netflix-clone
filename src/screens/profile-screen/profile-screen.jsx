@@ -6,14 +6,40 @@ import { isUserActive } from "../../utils/firebase.config";
 
 import { Link, useNavigate } from "react-router-dom";
 
+import { paymentHandler } from "../../utils/stripe";
+
 import Navbar from "../../components/navbar/navbar.component";
+import Spinner from "../../components/spinner/spinner.component";
+
+const plans = {
+  mobile: 149,
+  basic: 199,
+  standard: 499,
+  premium: 649,
+};
 
 function ProfileScreen() {
   const { user } = useContext(AuthContext);
   const [userInfo, setUserInfo] = useState(null);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const currentPlan = (plan) => userInfo?.currentPlan === plan;
+
+  const handlePayment = async (selectedValue) => {
+    try {
+      setLoading(true);
+      const client_secret = await paymentHandler(plans[selectedValue]);
+      setLoading(false);
+
+      navigate("/signup/paymentPicker", {
+        state: { clientSecret: client_secret },
+      });
+    } catch (error) {
+      console.log(error.message);
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     if (!user) return;
@@ -33,7 +59,7 @@ function ProfileScreen() {
 
   return (
     <div className="profile-screen">
-      <Navbar />
+      <Navbar short />
       <div className="profile-screen__wrapper">
         <div className="profile-screen__container">
           <div className="profile-heading__container">
@@ -52,7 +78,7 @@ function ProfileScreen() {
                 <span>{user?.email}</span>
               </header>
               <div className="profile__plans">
-                <span className="text-white">{`Plans (Current Plan: premium)`}</span>
+                <span className="text-white">{`Plans (Current Plan: ${userInfo?.currentPlan})`}</span>
               </div>
               <p className="text-white mt">{`Renewal Date: ${Date(
                 userInfo?.payment?.created
@@ -60,32 +86,53 @@ function ProfileScreen() {
               {/* rows */}
               <div className="profile-content__row ">
                 <div className="left">
-                  <p className="text-white fw-600">Netflix Standard</p>
-                  <span className="text-white fw-600 fs-300">1080p</span>
+                  <p className="text-white fw-600">Netflix Mobile</p>
+                  <span className="text-white fw-600 fs-300">480p</span>
                 </div>
                 <div className="right">
-                  <div
-                    className={`plan-status-box ${
-                      currentPlan("Standard") && "bg-light"
+                  <button
+                    onClick={() => handlePayment("mobile")}
+                    disabled={currentPlan("Mobile")}
+                    className={`btn-plan-subscribe ${
+                      currentPlan("Mobile") && "bg-light"
                     }`}
-                  >{`${
-                    currentPlan("Standard") ? "Current Package" : "Subscribe"
-                  }`}</div>
+                  >
+                    {currentPlan("Mobile") ? "Current Package" : "Subscribe"}
+                  </button>
                 </div>
               </div>
               <div className="profile-content__row ">
                 <div className="left">
                   <p className="text-white fw-600">Netflix Basic</p>
-                  <span className="text-white fw-600 fs-300">480p</span>
+                  <span className="text-white fw-600 fs-300">720p</span>
                 </div>
                 <div className="right">
-                  <div
-                    className={`plan-status-box ${
+                  <button
+                    onClick={() => handlePayment("basic")}
+                    disabled={currentPlan("Basic")}
+                    className={`btn-plan-subscribe ${
                       currentPlan("Basic") && "bg-light"
                     }`}
-                  >{`${
-                    currentPlan("Basic") ? "Current Package" : "Subscribe"
-                  }`}</div>
+                  >
+                    {currentPlan("Basic") ? "Current Package" : "Subscribe"}
+                  </button>
+                </div>
+              </div>
+              <div className="profile-content__row ">
+                <div className="left">
+                  <p className="text-white fw-600">Netflix Standard</p>
+                  <span className="text-white fw-600 fs-300">1080p</span>
+                </div>
+                <div className="right">
+                  <button
+                    onClick={() => handlePayment("standard")}
+                    disabled={currentPlan("Standard")}
+                    className={`btn-plan-subscribe ${
+                      currentPlan("Standard") && "bg-light"
+                    }`}
+                  >
+                    {currentPlan("Standard") ? "Current Package" : "Subscribe"}
+                  </button>
                 </div>
               </div>
               <div className="profile-content__row ">
@@ -94,15 +141,15 @@ function ProfileScreen() {
                   <span className="text-white fw-600 fs-300">4k+hdr</span>
                 </div>
                 <div className="right">
-                  <div
-                    className={`plan-status-box ${
+                  <button
+                    onClick={() => handlePayment("premium")}
+                    disabled={currentPlan("Premium")}
+                    className={`btn-plan-subscribe ${
                       currentPlan("Premium") && "bg-light"
                     }`}
                   >
-                    {`${
-                      currentPlan("Premium") ? "Current Package" : "Subscribe"
-                    }`}
-                  </div>
+                    {currentPlan("Premium") ? "Current Package" : "Subscribe"}
+                  </button>
                 </div>
               </div>
 
@@ -113,6 +160,11 @@ function ProfileScreen() {
           </div>
         </div>
       </div>
+      {loading && (
+        <div className="spinner-modal">
+          <Spinner />
+        </div>
+      )}
     </div>
   );
 }

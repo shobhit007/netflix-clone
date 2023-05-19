@@ -26,7 +26,7 @@ function Signout() {
   return (
     <div className="signout">
       <div className="signout__wrapper">
-        <Navbar />
+        <Navbar short buttonEnabled />
         <div className="signout-background-image"></div>
         <div className="signout__card">
           <div className="signout__card-container">

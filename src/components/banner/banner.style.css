@@ -1,11 +1,23 @@
 .banner {
-  height: 448px;
+  min-height: 546px;
   color: var(--clr-white);
   object-fit: contain;
   position: relative;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
+}
+
+@media (min-width: 1440px) {
+  .banner {
+    min-height: 668px;
+  }
+}
+
+@media (max-width: 540px) {
+  .banner {
+    min-height: 430px;
+  }
 }
 
 .banner__contents {

@@ -5,10 +5,13 @@ import { auth } from "../utils/firebase.config";
 
 const INITIAL_STATE = {
   user: null,
+  errorMessage: "",
 };
 
 export const AuthContext = createContext({
   user: INITIAL_STATE.user,
+  errorMessage: "",
+  setErrorMessage: () => {},
 });
 
 const reducer = (state, action) => {
@@ -17,8 +20,8 @@ const reducer = (state, action) => {
   switch (type) {
     case "user":
       return { ...state, user: payload };
-    case "isEmailExists":
-      return { ...state, isEmailExists: !state.isEmailExists };
+    case "errorMessage":
+      return { ...state, errorMessage: payload };
     default:
       return state;
   }
@@ -27,7 +30,7 @@ const reducer = (state, action) => {
 export function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
 
-  const { user } = state;
+  const { user, errorMessage } = state;
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (userSnapshot) => {
@@ -39,8 +42,13 @@ export function AuthProvider({ children }) {
     return unsubscribe;
   }, []);
 
+  const setErrorMessage = (error) =>
+    dispatch({ type: "errorMessage", payload: error });
+
   const value = {
     user,
+    errorMessage,
+    setErrorMessage,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

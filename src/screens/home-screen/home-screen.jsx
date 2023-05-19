@@ -1,16 +1,19 @@
 import "./home-screen.css";
 import React, { useContext, useState } from "react";
 
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { AuthContext } from "../../context/auth.context";
 import { isUserExits } from "../../utils/firebase.config";
 
 import Button from "../../components/button/button.component";
 
+import Navbar from "../../components/navbar/navbar.component";
+
 function HomeScreen() {
-  const { user } = useContext(AuthContext);
+  const { user, errorMessage, setErrorMessage } = useContext(AuthContext);
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleClick = () => navigate("/signup/plan");
@@ -23,20 +26,30 @@ function HomeScreen() {
     e.preventDefault();
 
     if (!email) {
-      console.log("field required");
+      setErrorMessage("Field can't be empty.");
       return;
     }
 
-    const isEmailExists = await isUserExits(email);
+    try {
+      setLoading(true);
 
-    if (isEmailExists) {
-      navigate("/signup/password", {
-        state: email,
-      });
-    } else {
-      navigate("/signup/registration", {
-        state: email,
-      });
+      const isEmailExists = await isUserExits(email);
+
+      setLoading(false);
+      setErrorMessage("");
+
+      if (isEmailExists) {
+        navigate("/signup/password", {
+          state: email,
+        });
+      } else {
+        navigate("/signup/registration", {
+          state: email,
+        });
+      }
+    } catch (error) {
+      setLoading(false);
+      setErrorMessage("Something went wrong, Please try again.");
     }
   };
 
@@ -44,22 +57,7 @@ function HomeScreen() {
     <div className="home-screen">
       <header className="hero-section hero-bg">
         <div className="hero-section__wrapper">
-          <nav className="hero-nav section-container">
-            <img
-              src="https://assets.stickpng.com/images/580b57fcd9996e24bc43c529.png"
-              alt="logo"
-              className="hero-nav-log"
-            />
-            {!user ? (
-              <Link to="/signin" className="hero-nav-link">
-                Sign In
-              </Link>
-            ) : (
-              <Link to="/signout" className="hero-nav-link">
-                Sign Out
-              </Link>
-            )}
-          </nav>
+          <Navbar buttonEnabled short />
           <div className="section-wrapper">
             <div className="section-container text-center">
               <div className="hero-section__content">
@@ -88,10 +86,22 @@ function HomeScreen() {
                       value={email}
                       onChange={handleOnChangeEmail}
                     />
-                    <button>Get Started</button>
+                    <Button disabled={loading} loading={loading}>
+                      Get Started
+                    </Button>
+                    {errorMessage && (
+                      <div
+                        className="mt text-white text-left"
+                        style={{ flexBasis: "100%", "--mt": "0.5rem" }}
+                      >
+                        {errorMessage}
+                      </div>
+                    )}
                   </form>
                 ) : (
-                  <Button onClick={handleClick}>Finish Sign Up</Button>
+                  <div className="fsb-container">
+                    <Button onClick={handleClick}>Finish Sign Up</Button>
+                  </div>
                 )}
               </div>
             </div>
@@ -251,10 +261,22 @@ function HomeScreen() {
                 value={email}
                 onChange={handleOnChangeEmail}
               />
-              <button>Get Started</button>
+              <Button loading={loading} disabled={loading}>
+                Get Started
+              </Button>
+              {errorMessage && (
+                <div
+                  className="mt text-white text-left"
+                  style={{ flexBasis: "100%", "--mt": "0.5rem" }}
+                >
+                  {errorMessage}
+                </div>
+              )}
             </form>
           ) : (
-            <Button onClick={handleClick}>Finish Sign Up</Button>
+            <div className="fsb-container">
+              <Button onClick={handleClick}>Finish Sign Up</Button>
+            </div>
           )}
         </div>
       </footer>

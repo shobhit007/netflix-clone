@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -9,8 +9,11 @@ import {
   signupWithEmailAndPassword,
   createUserDoc,
 } from "../../utils/firebase.config";
+import { AuthContext } from "../../context/auth.context";
 
 function Signupform() {
+  const [loading, setLoading] = useState(false);
+  const { errorMessage, setErrorMessage } = useContext(AuthContext);
   const { state: userEmail } = useLocation();
   const navigate = useNavigate();
 
@@ -18,6 +21,12 @@ function Signupform() {
     email: userEmail ? userEmail : "",
     password: "",
   });
+
+  // just for clean up error message while back to previous page
+  useEffect(() => {
+    if (!errorMessage) return;
+    return () => setErrorMessage("");
+  }, [errorMessage, setErrorMessage]);
 
   const { email, password } = formFields;
 
@@ -33,16 +42,28 @@ function Signupform() {
   const handleSignup = async (e) => {
     e.preventDefault();
 
+    if (!email || !password) {
+      setErrorMessage("Fields can't be empty.");
+      return;
+    }
+
     try {
+      setLoading(true);
+
       const { user } = await signupWithEmailAndPassword(email, password);
 
       await createUserDoc(user);
+
+      setLoading(false);
+      setErrorMessage("");
       navigate("/signup/plan");
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
-        console.log("email has already been used");
+        setErrorMessage("email has already been used.");
+        setLoading(false);
       } else {
-        console.log(error);
+        setErrorMessage("Something went wrong. Please try again.");
+        setLoading(false);
       }
     }
   };
@@ -82,11 +103,13 @@ function Signupform() {
               placeholder="Add a password"
               value={password}
               name="password"
-              autoFocus
               onChange={handleFormInuptChange}
             />
-            <Button type="submit">Next</Button>
+            <Button type="submit" loading={loading} disabled={loading}>
+              Next
+            </Button>
           </form>
+          {errorMessage && <div className="mt">{errorMessage}</div>}
         </div>
       </div>
     </div>

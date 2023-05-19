@@ -26,6 +26,16 @@
   color: var(--clr-light);
 }
 
+@media (max-width: 768px) {
+  .signout__card {
+    padding: 3rem 0.5rem;
+  }
+
+  .signout__card-container {
+    padding: 1.85rem;
+  }
+}
+
 .signout__card-heading {
   font-size: clamp(2.25rem, 2.2vw, 4.25rem);
   line-height: 1.1;
@@ -40,7 +50,7 @@
   display: inline-block;
   text-decoration: none;
   width: 100%;
-  padding: 0.5rem 0;
+  padding: 0.7rem 0;
   text-align: center;
   background-color: var(--clr-blue);
   color: var(--clr-white);

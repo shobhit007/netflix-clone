@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -9,23 +9,40 @@ import {
   loginWithEmailAndPassword,
   isUserActive,
 } from "../../utils/firebase.config";
+import { AuthContext } from "../../context/auth.context";
 
 function SignupPassword() {
+  const { errorMessage, setErrorMessage } = useContext(AuthContext);
   const { state: userEmail } = useLocation();
+  const [loading, setLoading] = useState(false);
+  const [password, setPassword] = useState("");
+
   const navigate = useNavigate();
 
-  const [password, setPassword] = useState("");
+  // just for clean up error message while back to previous page
+  useEffect(() => {
+    if (!errorMessage) return;
+    return () => setErrorMessage("");
+  }, [errorMessage, setErrorMessage]);
 
   const handleFormInuptChange = (e) => setPassword(e.target.value);
 
   const handleSignupPassword = async (e) => {
     e.preventDefault();
 
-    if (!userEmail || !password) return;
+    if (!userEmail || !password) {
+      setErrorMessage("Fields can't be empty.");
+      return;
+    }
 
     try {
+      setLoading(true);
+
       await loginWithEmailAndPassword(userEmail, password);
       const isActive = await isUserActive(userEmail);
+
+      setLoading(false);
+      setErrorMessage("");
 
       if (isActive) {
         navigate("/");
@@ -34,7 +51,13 @@ function SignupPassword() {
 
       navigate("/signup/plan", { replace: true });
     } catch (error) {
-      console.log(error);
+      if (error.code === "auth/wrong-password") {
+        setErrorMessage("Invalid password.");
+        setLoading(false);
+      } else {
+        setErrorMessage("Something went wrong. Please try again.");
+        setLoading(false);
+      }
     }
   };
 
@@ -66,11 +89,13 @@ function SignupPassword() {
               placeholder="Enter your password"
               value={password}
               name="password"
-              autoFocus
               onChange={handleFormInuptChange}
             />
-            <Button type="submit">Next</Button>
+            <Button type="submit" disabled={loading} loading={loading}>
+              Next
+            </Button>
           </form>
+          {errorMessage && <div className="mt">{errorMessage}</div>}
         </div>
       </div>
     </div>

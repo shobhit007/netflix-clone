@@ -28,11 +28,19 @@ const CheckoutStatus = () => {
       "payment_intent_client_secret"
     );
 
+    const saveUserStatus = async (payment) => {
+      try {
+        await setUserPaymentStatus(user, payment);
+      } catch (error) {
+        setErrorMessage(error.message);
+      }
+    };
+
     // Retrieve the PaymentIntent
     stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
       switch (paymentIntent.status) {
         case "succeeded":
-          setUserPaymentStatus(user, paymentIntent);
+          saveUserStatus(paymentIntent);
           setSuccessMessage("Payment received.");
           break;
 
