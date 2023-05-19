@@ -25,7 +25,8 @@ const CheckoutForm = () => {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: "http://localhost:8888/signup/paymentSuccess",
+        return_url:
+          "https://almost-netflix-clone.netlify.app/signup/paymentSuccess",
       },
     });
 
