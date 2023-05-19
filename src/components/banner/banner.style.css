@@ -3,6 +3,9 @@
   color: var(--clr-white);
   object-fit: contain;
   position: relative;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
 }
 
 .banner__contents {

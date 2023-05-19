@@ -1,5 +1,12 @@
 .row {
-  padding: 1rem 0 0.5rem;
+  padding: 1rem 0 0.5rem 2rem;
+  position: relative;
+}
+
+@media (max-width: 540px) {
+  .row {
+    padding-left: 1rem;
+  }
 }
 
 .row__title {
@@ -13,6 +20,7 @@
   display: flex;
   overflow-y: hidden;
   overflow-x: scroll;
+  scroll-behavior: smooth;
 }
 
 .row__movies::-webkit-scrollbar {
@@ -36,4 +44,33 @@
 
 .row__large-poster:hover {
   transform: scale(1.09);
+}
+
+.btn-slide {
+  display: none;
+  visibility: hidden;
+}
+
+@media (min-width: 768px) {
+  .btn-slide {
+    display: inline-block;
+    border: none;
+    outline: none;
+    position: absolute;
+    z-index: 1;
+    visibility: visible;
+    height: 100%;
+    padding: 0 1rem;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: var(--clr-white);
+    cursor: pointer;
+  }
+
+  .next-slide {
+    right: 0.25rem;
+  }
+
+  .pre-slide {
+    left: 2rem;
+  }
 }

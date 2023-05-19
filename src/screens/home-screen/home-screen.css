@@ -231,6 +231,12 @@
   gap: 1rem;
 }
 
+@media (max-width: 540px) {
+  .download-card {
+    max-width: 75%;
+  }
+}
+
 .download-card > img {
   width: 48px;
 }

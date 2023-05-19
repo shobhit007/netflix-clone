@@ -1,7 +1,8 @@
 import "./profile-screen.style.css";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { AuthContext } from "../../context/auth.context";
+import { isUserActive } from "../../utils/firebase.config";
 
 import { Link, useNavigate } from "react-router-dom";
 
@@ -9,7 +10,21 @@ import Navbar from "../../components/navbar/navbar.component";
 
 function ProfileScreen() {
   const { user } = useContext(AuthContext);
+  const [userInfo, setUserInfo] = useState(null);
   const navigate = useNavigate();
+
+  const currentPlan = (plan) => userInfo?.currentPlan === plan;
+
+  useEffect(() => {
+    if (!user) return;
+
+    const getUserInfo = async () => {
+      const data = await isUserActive(user.email);
+      setUserInfo(data);
+    };
+
+    getUserInfo();
+  }, [user]);
 
   if (!user) {
     navigate("/");
@@ -39,7 +54,9 @@ function ProfileScreen() {
               <div className="profile__plans">
                 <span className="text-white">{`Plans (Current Plan: premium)`}</span>
               </div>
-              <p className="text-white mt">Renewal Date: 04/05/2023</p>
+              <p className="text-white mt">{`Renewal Date: ${Date(
+                userInfo?.payment?.created
+              )}`}</p>
               {/* rows */}
               <div className="profile-content__row ">
                 <div className="left">
@@ -47,7 +64,13 @@ function ProfileScreen() {
                   <span className="text-white fw-600 fs-300">1080p</span>
                 </div>
                 <div className="right">
-                  <div className="plan-status-box">Subscribe</div>
+                  <div
+                    className={`plan-status-box ${
+                      currentPlan("Standard") && "bg-light"
+                    }`}
+                  >{`${
+                    currentPlan("Standard") ? "Current Package" : "Subscribe"
+                  }`}</div>
                 </div>
               </div>
               <div className="profile-content__row ">
@@ -56,7 +79,13 @@ function ProfileScreen() {
                   <span className="text-white fw-600 fs-300">480p</span>
                 </div>
                 <div className="right">
-                  <div className="plan-status-box">Subscribe</div>
+                  <div
+                    className={`plan-status-box ${
+                      currentPlan("Basic") && "bg-light"
+                    }`}
+                  >{`${
+                    currentPlan("Basic") ? "Current Package" : "Subscribe"
+                  }`}</div>
                 </div>
               </div>
               <div className="profile-content__row ">
@@ -65,8 +94,14 @@ function ProfileScreen() {
                   <span className="text-white fw-600 fs-300">4k+hdr</span>
                 </div>
                 <div className="right">
-                  <div className="plan-status-box bg-light">
-                    Current Package
+                  <div
+                    className={`plan-status-box ${
+                      currentPlan("Premium") && "bg-light"
+                    }`}
+                  >
+                    {`${
+                      currentPlan("Premium") ? "Current Package" : "Subscribe"
+                    }`}
                   </div>
                 </div>
               </div>

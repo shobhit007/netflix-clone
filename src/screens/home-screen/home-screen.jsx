@@ -243,8 +243,14 @@ function HomeScreen() {
             membership.
           </p>
           {!user ? (
-            <form className="hero-section__form">
-              <input type="email" placeholder="Email address" />
+            <form onSubmit={handleGetStarted} className="hero-section__form">
+              <input
+                type="email"
+                placeholder="Email address"
+                name="email"
+                value={email}
+                onChange={handleOnChangeEmail}
+              />
               <button>Get Started</button>
             </form>
           ) : (

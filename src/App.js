@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 import HomeScreen from "./screens/home-screen/home-screen";
 import SignIn from "./screens/signin-screen/signin-screen";
@@ -24,6 +24,7 @@ import { isUserActive } from "./utils/firebase.config";
 function App() {
   const { user } = useContext(AuthContext);
   const [isActive, setIsActive] = useState(false);
+  const { pathname } = useLocation();
 
   useEffect(() => {
     if (!user) return;
@@ -35,6 +36,10 @@ function App() {
 
     checkUserStatus();
   }, [user]);
+
+  useEffect(() => {
+    window.scroll({ top: 0 });
+  }, [pathname]);
 
   // if (loading) {
   //   return <h1>Loading...</h1>

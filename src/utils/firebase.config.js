@@ -78,9 +78,19 @@ export const signOutUser = async () => await signOut(auth);
 export const setUserPaymentStatus = async (user, payment) => {
   const paymentRef = doc(db, "customers", user.email);
 
+  const plans = {
+    149: "Mobile",
+    199: "Basic",
+    499: "Standard",
+    649: "Premium",
+  };
+
   try {
+    payment.amount = payment.amount / 100;
+
     await setDoc(paymentRef, {
-      paymentIntent: payment,
+      payment,
+      currentPlan: plans[payment.amount],
       active: true,
     });
   } catch (error) {
@@ -94,7 +104,7 @@ export const isUserActive = async (email) => {
 
   const userSnapshot = await getDoc(docRef);
 
-  if (userSnapshot.exists()) return true;
+  if (userSnapshot.exists()) return userSnapshot.data();
 
   return false;
 };

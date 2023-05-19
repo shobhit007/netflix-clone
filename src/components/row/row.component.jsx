@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./row.style.css";
 
 import axios from "../../utils/axios";
 
 function Row({ title, fetchUrl, isLargeRow = false }) {
   const [movies, setMovies] = useState([]);
+  const rowRef = useRef(null);
 
   const posterBaseUrl = "https://image.tmdb.org/t/p/original";
 
@@ -17,11 +18,21 @@ function Row({ title, fetchUrl, isLargeRow = false }) {
     fetchMovies();
   }, [fetchUrl]);
 
+  const nextSlide = () => {
+    const sliderWidth = rowRef.current.offsetWidth;
+    rowRef.current.scrollLeft = rowRef.current.scrollLeft + sliderWidth;
+  };
+
+  const preSlide = () => {
+    const sliderWidth = rowRef.current.offsetWidth;
+    rowRef.current.scrollLeft = rowRef.current.scrollLeft - sliderWidth;
+  };
+
   return (
     <div className="row">
       <h2 className="row__title">{title}</h2>
 
-      <div className="row__movies">
+      <div className="row__movies" ref={rowRef}>
         {movies.map(
           (movie) =>
             ((isLargeRow && movie.poster_path) ||
@@ -36,6 +47,13 @@ function Row({ title, fetchUrl, isLargeRow = false }) {
               />
             )
         )}
+
+        <button className="next-slide btn-slide" onClick={nextSlide}>
+          <span className="material-symbols-outlined">chevron_right</span>
+        </button>
+        <button className="pre-slide btn-slide" onClick={preSlide}>
+          <span className="material-symbols-outlined">chevron_left</span>
+        </button>
       </div>
     </div>
   );

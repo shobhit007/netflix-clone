@@ -66,6 +66,7 @@ function SignupPassword() {
               placeholder="Enter your password"
               value={password}
               name="password"
+              autoFocus
               onChange={handleFormInuptChange}
             />
             <Button type="submit">Next</Button>
