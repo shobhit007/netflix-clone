@@ -17,7 +17,7 @@ function Signout() {
     signout();
 
     const timeout = setTimeout(() => {
-      navigate("/");
+      navigate("/", { replace: true });
     }, 30 * 1000);
 
     return () => clearTimeout(timeout);
@@ -40,7 +40,7 @@ function Signout() {
             <p className="card-sub-heading">
               You'll be redirected to Home in 30 seconds.
             </p>
-            <Link to="/" className="btn-go-now">
+            <Link to="/" className="btn-go-now" replace={true}>
               Go Now
             </Link>
           </div>
