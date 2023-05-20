@@ -7,16 +7,15 @@ import { Link } from "react-router-dom";
 function Navbar({ background = "transparent", buttonEnabled, short }) {
   const { user } = useContext(AuthContext);
 
+  const logo_url =
+    "https://image.tmdb.org/t/p/w500/wwemzKWzjKYJFfCeiB57q3r4Bcm.png";
+
   return (
     <nav
       className={`primary-navbar ${short && "navbar-short"}`}
       style={{ backgroundColor: background }}
     >
-      <img
-        src="https://assets.stickpng.com/images/580b57fcd9996e24bc43c529.png"
-        alt="logo"
-        className="navbar-logo"
-      />
+      <img src={logo_url} alt="logo" className="navbar-logo" />
       {!user
         ? buttonEnabled && (
             <Link to="/signin" className="navbar-link-item">

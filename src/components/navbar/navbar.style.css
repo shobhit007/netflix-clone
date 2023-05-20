@@ -3,6 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 2rem 0 1rem;
 }
 
 .navbar-short {
@@ -16,7 +17,7 @@
 
 @media (max-width: 991px) {
   .primary-navbar {
-    padding: 0 1rem;
+    padding: 1.25rem 1rem;
   }
   .navbar-logo {
     width: 120px;

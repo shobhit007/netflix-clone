@@ -24,6 +24,17 @@ function ProfileScreen() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (!user) return;
+
+    const getUserInfo = async () => {
+      const data = await isUserActive(user.email);
+      setUserInfo(data);
+    };
+
+    getUserInfo();
+  }, [user]);
+
   const currentPlan = (plan) => userInfo?.currentPlan === plan;
 
   const handlePayment = async (selectedValue) => {
@@ -41,20 +52,12 @@ function ProfileScreen() {
     }
   };
 
-  useEffect(() => {
-    if (!user) return;
-
-    const getUserInfo = async () => {
-      const data = await isUserActive(user.email);
-      setUserInfo(data);
-    };
-
-    getUserInfo();
-  }, [user]);
-
-  if (!user) {
-    navigate("/");
-    return null;
+  if (!userInfo) {
+    return (
+      <div className="spinner-modal">
+        <Spinner />
+      </div>
+    );
   }
 
   return (

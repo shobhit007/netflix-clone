@@ -22,7 +22,7 @@ import { AuthContext } from "./context/auth.context";
 import { isUserActive } from "./utils/firebase.config";
 
 function App() {
-  const { user } = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
   const [isActive, setIsActive] = useState(false);
   const { pathname } = useLocation();
 
@@ -41,15 +41,15 @@ function App() {
     window.scroll({ top: 0 });
   }, [pathname]);
 
-  // if (loading) {
-  //   return <h1>Loading...</h1>
-  // }
+  if (loading) {
+    return null;
+  }
 
   return (
     <Routes>
       <Route
         path="/"
-        element={user && isActive ? <WatchScreen /> : <HomeScreen />}
+        element={user ? isActive ? <WatchScreen /> : null : <HomeScreen />}
       />
       <Route path="/signin" element={<SignIn />} />
       <Route path="/profile" element={<ProfileScreen />} />

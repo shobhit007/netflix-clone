@@ -1,12 +1,17 @@
+.watch-screen {
+  position: relative;
+}
+
 .watch_nav {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   padding: 0.75rem 0;
-  z-index: 99;
+  z-index: 2;
   transition: all 0.3s ease-in;
   background-color: transparent;
+  padding: 2rem 0;
 }
 
 .nav__black {
@@ -21,13 +26,84 @@
 }
 
 .watch-nav__logo {
-  width: 120px;
+  width: 200px;
+}
+
+@media (max-width: 991px) {
+  .watch_nav {
+    padding: 1.25rem 0;
+  }
+  .watch-nav__logo {
+    width: 120px;
+  }
+
+  .nav__content {
+    padding: 0 0.75rem;
+  }
 }
 
 .watch-nav__avatar {
-  width: 30px;
+  width: 36px;
 }
 
 .nav__avatar {
   cursor: pointer;
+}
+
+/* youtube  */
+.youtube-wrapper {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 3;
+  padding: 9.865rem 0 3rem;
+}
+
+@media (max-width: 991px) {
+  .youtube-wrapper {
+    padding: 7.86rem 0 2rem;
+  }
+}
+
+.youtube-container {
+  max-width: 768px;
+  aspect-ratio: 16/9;
+  margin: 0 auto;
+  position: relative;
+}
+
+.youtube-container > * {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.btn-close-video {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: var(--clr-white);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  position: absolute;
+  top: 10%;
+  right: 12%;
+  z-index: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-close-video:hover {
+  background-color: var(--clr-black);
+}
+
+@media (max-width: 991px) {
+  .btn-close-video {
+    top: 5%;
+    right: 2%;
+  }
 }

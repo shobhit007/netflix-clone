@@ -6,12 +6,14 @@ import { auth } from "../utils/firebase.config";
 const INITIAL_STATE = {
   user: null,
   errorMessage: "",
+  loading: true,
 };
 
 export const AuthContext = createContext({
   user: INITIAL_STATE.user,
   errorMessage: "",
   setErrorMessage: () => {},
+  loading: true,
 });
 
 const reducer = (state, action) => {
@@ -19,9 +21,9 @@ const reducer = (state, action) => {
 
   switch (type) {
     case "user":
-      return { ...state, user: payload };
+      return { ...state, user: payload, loading: false };
     case "errorMessage":
-      return { ...state, errorMessage: payload };
+      return { ...state, errorMessage: payload, loading: false };
     default:
       return state;
   }
@@ -30,7 +32,7 @@ const reducer = (state, action) => {
 export function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
 
-  const { user, errorMessage } = state;
+  const { user, errorMessage, loading } = state;
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (userSnapshot) => {
@@ -47,6 +49,7 @@ export function AuthProvider({ children }) {
 
   const value = {
     user,
+    loading,
     errorMessage,
     setErrorMessage,
   };
