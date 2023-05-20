@@ -49,7 +49,7 @@ function App() {
     <Routes>
       <Route
         path="/"
-        element={user ? isActive ? <WatchScreen /> : null : <HomeScreen />}
+        element={user && isActive ? <WatchScreen /> : <HomeScreen />}
       />
       <Route path="/signin" element={<SignIn />} />
       <Route path="/profile" element={<ProfileScreen />} />
