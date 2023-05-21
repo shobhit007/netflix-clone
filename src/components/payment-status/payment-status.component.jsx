@@ -10,7 +10,7 @@ import { AuthContext } from "../../context/auth.context";
 import { stripePromise } from "../../utils/stripe";
 
 import Button from "../button/button.component";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const CheckoutStatus = () => {
   const [successMessage, setSuccessMessage] = useState(null);
@@ -63,7 +63,7 @@ const CheckoutStatus = () => {
     });
   }, [stripe, user]);
 
-  const redirectHomePage = () => navigate("/");
+  const redirectHomePage = () => navigate("/", { replace: true });
 
   const redirectPlanForm = () => navigate("/signup/planform");
 
@@ -86,7 +86,17 @@ const CheckoutStatus = () => {
       {errorMessage && (
         <span className="mt text-light fs-300 mb">{errorMessage}</span>
       )}
-      {successMessage && <Button onClick={redirectHomePage}>Next</Button>}
+      {successMessage && (
+        <Link
+          to="/"
+          className="red-button red-button-link"
+          onClick={redirectHomePage}
+          reloadDocument={true}
+          replace={true}
+        >
+          Next
+        </Link>
+      )}
       {errorMessage && <Button onClick={redirectPlanForm}>Try again</Button>}
     </React.Fragment>
   );

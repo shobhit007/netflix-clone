@@ -8,6 +8,8 @@ import {
 
 import Button from "../button/button.component";
 
+// https://almost-netflix-clone.netlify.app/signup/paymentSuccess
+
 const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();

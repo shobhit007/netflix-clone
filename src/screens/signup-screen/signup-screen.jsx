@@ -5,17 +5,18 @@ import { AuthContext } from "../../context/auth.context";
 
 import { Link, Outlet } from "react-router-dom";
 
+const logo_url =
+  "https://image.tmdb.org/t/p/w500/wwemzKWzjKYJFfCeiB57q3r4Bcm.png";
+
 function Signup() {
   const { user } = useContext(AuthContext);
 
   return (
     <React.Fragment>
       <header className="signup__header">
-        <img
-          src="https://assets.stickpng.com/images/580b57fcd9996e24bc43c529.png"
-          alt="logo"
-          className="nav__logo"
-        />
+        <Link className="signup__logo-nav-link" to="/">
+          <img src={logo_url} alt="logo" className="nav__logo" />
+        </Link>
         {!user ? (
           <Link to="/signin" className="signup__nav-link">
             Sign In

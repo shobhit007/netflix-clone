@@ -2,10 +2,29 @@
   display: flex;
   align-items: stretch;
   justify-content: space-between;
-  padding: 0 2rem;
+  padding: 1rem 2rem;
   border-bottom: 1px solid #e6e6e6;
   height: 90px;
   background-color: var(--clr-white);
+}
+
+.nav__logo {
+  width: 200px;
+  border: 0;
+}
+
+.signup__logo-nav-link {
+  text-decoration: none;
+}
+
+@media (max-width: 991px) {
+  .nav__logo {
+    width: 120px;
+  }
+
+  .signup__header {
+    align-items: center;
+  }
 }
 
 .signup__nav-link {

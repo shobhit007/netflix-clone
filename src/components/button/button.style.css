@@ -12,6 +12,14 @@
   transition-timing-function: cubic-bezier(0.5, 0, 0.1, 1);
 }
 
+.red-button-link {
+  text-decoration: none;
+  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .red-button:hover {
   background: rgb(193, 17, 25);
 }

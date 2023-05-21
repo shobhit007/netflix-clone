@@ -6,6 +6,10 @@
   padding: 2rem 0 1rem;
 }
 
+.navbar-logo-link {
+  text-decoration: none;
+}
+
 .navbar-short {
   max-width: 1156px;
   margin: 0 auto;

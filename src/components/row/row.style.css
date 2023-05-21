@@ -4,7 +4,7 @@
 }
 
 @media (max-width: 540px) {
-  .row {
+  .movies_row {
     padding-left: 1rem;
   }
 }
@@ -59,7 +59,7 @@
   }
 
   .next-slide {
-    right: 0.25rem;
+    right: 0rem;
   }
 
   .pre-slide {
