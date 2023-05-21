@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 import Banner from "../../components/banner/banner.component";
 import Row from "../../components/row/row.component";
+import Spinner from "../../components/spinner/spinner.component";
 
 import YoutubePlayer from "react-youtube";
 
@@ -17,6 +18,7 @@ const logo_url =
 function WatchScreen() {
   const [show, handleShow] = useState(false);
   const [play, setPlay] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [videoId, setVideoId] = useState("");
   const { errorMessage, setErrorMessage } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -44,11 +46,14 @@ function WatchScreen() {
   const handlePlay = async (id, title) => {
     setPlay(true);
     try {
+      setLoading(true);
       const data = await fetchMovieTrailer(id, title);
       const movie = data.find((m) => m.type === "Trailer");
       setVideoId(movie.key);
+      setLoading(false);
     } catch (error) {
       setErrorMessage("Maybe the video was not found.");
+      setLoading(false);
     }
   };
 
@@ -132,6 +137,11 @@ function WatchScreen() {
           {errorMessage && (
             <div className="text-white text-center">{errorMessage}</div>
           )}
+        </div>
+      )}
+      {loading && (
+        <div className="spinner-modal">
+          <Spinner />
         </div>
       )}
     </div>
